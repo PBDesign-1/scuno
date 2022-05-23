@@ -1,11 +1,13 @@
 const loadArchive = ()=>{
     fetch("/general/myYears").then(res=>res.json()).then((res)=>{
         console.log(res)
+        let appendHtml = ""
         const years = res.response
-        years.forEach(year=>{
+        console.log(years.sort((a,b)=>b.year - a.year))
+        years.sort((a,b)=>b.year - a.year).forEach(year=>{
             const {subjects} = year
             let grades = []
-            let appendHtml = ""
+            
     
             Object.keys(subjects).forEach(key=>{
                 const subject = subjects[key]
@@ -22,11 +24,13 @@ const loadArchive = ()=>{
             }) 
             const sortedGrades = grades.sort((a, b)=>a.grade - b.grade)         
             
-            const bestnote = sortedGrades[0]
+            const bestnote = sortedGrades[0].grade
             const durchschnitt = (sortedGrades.reduce((all, part)=>all + part.grade, 0) / sortedGrades.length) || bestnote.grade
 
-            console.log(bestnote, durchschnitt, sortedGrades, sortedGrades.reduce((all, part)=>all + part.grade, 0))
+            appendHtml += `<div><p>${year.year}</p><p>Bestnote: ${bestnote}</p><p>Durchschnitt: ${durchschnitt}</p></div>`
         })
+        
+        document.querySelector(".archive-container").innerHTML = appendHtml
 
     })
 }

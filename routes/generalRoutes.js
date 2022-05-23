@@ -8,7 +8,8 @@ const router = Router()
 router.get("/me", async (req, res)=>{
     try{
         if(!!req.session.user){
-            const me = await connection.db.db("scuno").collection("users").findOne({_id: ObjectId(req.session.user)})
+            let me = await connection.db.db("scuno").collection("users").findOne({_id: ObjectId(req.session.user)})
+            delete me.password
             res.json({success: true, response: me})
         }else{
             res.json({success: false})
@@ -21,14 +22,22 @@ router.get("/me", async (req, res)=>{
 router.post("/changeMe", async (req, res)=>{
     try{
         if(!!req.session.user){
-            const {change} = req.body
-
-            if(change._id){
-                delete change._id
-            }
             
-            const chngeMe = await connection.db.db("scuno").collection("users").updateOne({_id: ObjectId(req.session.user)}, change)
-            res.json({success: true, response: me})
+            let {changes} = req.body
+            console.log(1)
+
+            if(changes._id){
+                delete changes._id
+            }
+            console.log(2)
+            if(changes.password){
+                changes.password = await bcrypt.hash(changes.password, 10)
+            }
+            console.log(changes)
+            
+            const changeMe = await connection.db.db("scuno").collection("users").updateOne({_id: ObjectId(req.session.user)}, {$set: changes})
+            console.log(3)
+            res.json({success: true})
         }else{
             res.json({success: false})
         }
