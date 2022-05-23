@@ -1,0 +1,80 @@
+.login-container {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 40px;
+}
+.login-input-container {
+    display: grid;
+    grid-template: 1fr / auto 70%;
+    margin-bottom: 30px;
+}
+.login-input-container p {
+    margin: 0;
+    font-size: 20px;
+}
+.login-input-container input {
+    padding: 5px 10px;
+    font-size: 15px;
+}
+.login-container button {
+    display: block;
+}
+
+
+.login-submit {
+    width: 100%;
+    background-color: red;
+    padding: 7.5px;
+    margin-top: 45px;
+    font-size: 17.5px;
+}
+.login-registrieren {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-size: 12.5px;
+    padding: 5px;
+}
+
+
+
+
+
+@media (max-width: 640px) {
+    .login-container {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .login-container h1 {
+        margin-bottom: 20px;
+        font-size: 30px;
+    }
+    .login-input-container p {
+        font-size: 17.5px;
+        margin-bottom: 5px;
+    }
+
+    .login-input-container {
+        display: grid;
+        grid-template: auto auto / 100%;
+        margin-bottom: 20px;
+    }
+    .login-submit {
+        padding: 7.5px;
+        margin-top: 30px;
+        font-size: 15px;
+    }
+
+}
+
+@media (min-width: 641px) and (max-width: 1007px) {
+    .login-container {
+        width: 85%;
+        margin-top: 20px;
+    }
+}

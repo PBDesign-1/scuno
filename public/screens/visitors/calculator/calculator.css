@@ -1,0 +1,15 @@
+.calculator-inputs-visitors {
+    display: grid;
+    grid-template: 1fr / auto auto auto;
+}
+
+
+
+
+
+
+
+.possibility-visitor {
+    display: flex;
+    justify-content: space-between;
+}

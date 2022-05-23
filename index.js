@@ -41,11 +41,24 @@ app.get("/", (req, res)=>{
     if(req.session.user){
         res.redirect("/dashboard")
     }else {
-        res.sendFile(path.join(__dirname, "/screens/visitors/login/login.html"))
+        res.sendFile(path.join(__dirname, "public/screens/visitors/home/home.html"))
     }
 })
 
-
+app.get("/anmelden", (req, res)=>{
+    if(req.session.user){
+        res.redirect("/dashboard")
+    }else {
+        res.sendFile(path.join(__dirname, "public/screens/visitors/login/login.html"))
+    }
+})
+app.get("/registrieren", (req, res)=>{
+    if(req.session.user){
+        res.redirect("/dashboard")
+    }else {
+        res.sendFile(path.join(__dirname, "public/screens/visitors/register/register.html"))
+    }
+})
 
 
 
@@ -54,9 +67,9 @@ app.get("/", (req, res)=>{
 //Visitors and Members
 app.get("/rechner", (req, res)=>{
     if(req.session.user){
-        res.redirect("/dashboard")
+        res.sendFile(path.join(__dirname, "public/screens/members/calculator/calculator.html"))
     }else {
-        res.sendFile(path.join(__dirname, "/screens/visitors/login/login.html"))
+        res.sendFile(path.join(__dirname, "public/screens/visitors/calculator/calculator.html"))
     }
 })
 
@@ -66,17 +79,24 @@ app.get("/rechner", (req, res)=>{
 //Members only
 app.get("/dashboard", (req, res)=>{
     if(req.session.user){
-        res.sendFile(path.join(__dirname, "/screens/members/dashboard/dashboard.html"))
+        res.sendFile(path.join(__dirname, "public/screens/members/dashboard/dashboard.html"))
     }else {
-        res.redirect("/login")
+        res.redirect("/anmelden")
+    }
+})
+app.get("/archiv", (req, res)=>{
+    if(req.session.user){
+        res.sendFile(path.join(__dirname, "public/screens/members/archive/archive.html"))
+    }else {
+        res.redirect("/anmelden")
     }
 })
 app.get("/einstellungen", (req, res)=>{
-    // if(req.session.user){
+    if(req.session.user){
         res.sendFile(path.join(__dirname, "public/screens/members/settings/settings.html"))
-    // }else {
-        // res.redirect("/login")
-    // }
+    }else {
+        res.redirect("/anmelden")
+    }
 })
 
 

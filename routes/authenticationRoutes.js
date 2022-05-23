@@ -21,7 +21,7 @@ router.post('/login', async (req, res)=> {
         req.session.user = dbUser._id;
         req.session.email = dbUser.email;
 
-        res.json({success: true})   
+        res.json({success: true})
 
     } catch (err){
         console.log(err)
@@ -47,7 +47,7 @@ router.post('/register', async (req, res)=> {
                 const newUser = await connection.db.db("scuno").collection("users").insertOne({...body})
                 const insertFirstYear = await connection.db.db("scuno").collection("years").insertOne({year: new Date().getFullYear(), subjects: {}, user: newUser.insertedId })
     
-                res.json({success: true}).end()
+                res.json({success: true})
             }else {
                 res.json({success: false})
             }                

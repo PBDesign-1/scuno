@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- <link rel="stylesheet"  href="./style.css"> -->
+        <link rel="stylesheet"  href="screens/general/general.css">
+        <link rel="stylesheet"  href="screens/members/settings/settings.css">
         <meta charset="UTF-8">
         <meta sameSite=Lax >
         <meta name="viewport" content="width=device-width intial-scale=1">
@@ -9,6 +10,26 @@
         <!-- <link rel="shortcut icon" href=""> -->
     </head>
     <header>
+        <div class="header-container">
+            <a href="/" class="header-logo-link"><img src="" alt="logo" /></a>
+            <ul class="header-container-list">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/archiv">Archiv</a></li>
+                <li><a href="/rechner">Rechner</a></li>
+                <li><button onclick="logout()">Abmelden</button></li>
+                <li class="header-einstellungen"><a href="/einstellungen"><img src="images/settings.png" alt="einstellungen" /></a></li>
+            </ul> 
+            <button class="header-toggle" onclick="toggleMenu()"><div class="header-toggle-img" >  </button>       
+        </div>
+        <div class="header-container-mobile">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/rechner">Rechner</a></li>
+                <li><a href="/archiv">Archiv</a></li>
+                <li><a href="/einstellungen">Einstellungen</a></li>
+                <li><button onclick="logout()">Abmelden</button></li>
+            </ul> 
+        </div>
 
     </header>
     <body>
@@ -17,4 +38,6 @@
     <footer>
 
     </footer>
+    <script src="screens/general/general.js" type="text/javascript"></script> 
+    <script src="screens/members/" type="text/javascript"></script> 
 </html>
