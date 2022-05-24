@@ -1,8 +1,9 @@
 /*
+background: #1A1A1D
 primaryColor: 
 secondaryColor: 
 tertiaryColor:
-accentColor:
+accentColor: #C3073F
 
 
 bigHeadings:
@@ -12,20 +13,42 @@ small:
 tiny:
 */
 
+:root {
+    --black: #1A1A1D;
+    --grey: #4E4E50;
+    --white: #e9e9e9;
+    --darkRed: #6F2232;
+    --accentColor: #C3073F;
+}
+
 
 html, body, head, footer, head {
     margin: 0;
     padding: 0;
 }
-p, h1, h2, h3, h4, h5, h6, li, img {
+html {
+    background-color: var(--black);
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+
+
+
+p, h1, h2, h3, h4, h5, h6, li, img, a, button, input {
     font-family: Arial, Helvetica, sans-serif;
+    color: var(--white);
 }
 a {
     text-decoration: none;
-    color: black;
 }
 button {
     border: none;
+}
+input {
+    background-color: var(--grey);
+    border: none;
+    outline: none;
 }
 
 
@@ -79,7 +102,7 @@ header ul {
     height: 25px;
 }
 .header-toggle-img {
-    background-image: url("/images/menu.png");
+    background-image: url("/images/menuWhite.png");
     background-position: center;
     background-size: cover;
 }
@@ -102,10 +125,10 @@ header ul {
     display: none;
 }
 .header-container-mobile {
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100vw;
-    background-color: black;
+    background-color: var(--grey);
     top: 0;
     left: 0;
     z-index: 10;
@@ -118,7 +141,7 @@ header ul {
     margin: 0;    
 } 
 .header-container-mobile ul li, .header-container-mobile a button{
-    font-size: 35px; 
+    font-size: 27px; 
     text-align: center;
 }
 .header-container-mobile ul li {
@@ -128,8 +151,7 @@ header ul {
 
 
 header button {
-    color: white;
-    background-color: red;
+    background-color: var(--accentColor);
     border: none;
     padding: 5px 10px;
 }
@@ -159,10 +181,10 @@ header button {
         display: flex;
     }
     header .active ~ header li, header img, header button, header a {
-        color: azure;
+        color: var(--white);
         z-index: 15;
     }
-    header .active .header-toggle-img {
+    /* header .active .header-toggle-img {
         background-image: url("/images/menuWhite.png");
-    }
+    } */
 }

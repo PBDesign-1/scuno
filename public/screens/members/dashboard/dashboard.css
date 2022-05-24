@@ -1,0 +1,14 @@
+.dashboard {
+    display: grid;
+    grid-template: auto auto auto / 1fr 1fr 1fr;
+}
+
+
+
+
+
+
+
+.dashboard-addGrade {
+    background-color: var(--accentColor);
+}

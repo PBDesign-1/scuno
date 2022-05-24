@@ -28,7 +28,7 @@
 
 .login-submit {
     width: 100%;
-    background-color: red;
+    background-color: var(--accentColor);
     padding: 7.5px;
     margin-top: 45px;
     font-size: 17.5px;
