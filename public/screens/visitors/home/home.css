@@ -1,0 +1,22 @@
+h1 {
+    font-weight: normal;
+    margin-bottom: 4em;
+    text-align: center;
+}
+h2 {
+    font-weight: normal;
+    margin-bottom: 4em;
+    text-align: center;
+}
+.button {
+    background-color: var(--accentColor);
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+}

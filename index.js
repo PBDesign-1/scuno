@@ -84,13 +84,13 @@ app.get("/dashboard", (req, res)=>{
         res.redirect("/anmelden")
     }
 })
-app.get("/archiv", (req, res)=>{
-    if(req.session.user){
-        res.sendFile(path.join(__dirname, "public/screens/members/archive/archive.html"))
-    }else {
-        res.redirect("/anmelden")
-    }
-})
+// app.get("/archiv", (req, res)=>{
+//     if(req.session.user){
+//         res.sendFile(path.join(__dirname, "public/screens/members/archive/archive.html"))
+//     }else {
+//         res.redirect("/anmelden")
+//     }
+// })
 app.get("/einstellungen", (req, res)=>{
     if(req.session.user){
         res.sendFile(path.join(__dirname, "public/screens/members/settings/settings.html"))

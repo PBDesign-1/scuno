@@ -31,7 +31,9 @@ function register (){
                 password: password1
             })
         }).then(res=>res.json()).then(res=>{
-            console.log(res)
+            if(res.success){
+                location.reload()
+            }
         })        
     }else {
         console.log("email is not valid")

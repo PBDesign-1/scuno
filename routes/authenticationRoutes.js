@@ -32,6 +32,7 @@ router.post('/login', async (req, res)=> {
 router.post('/register', async (req, res)=> {
     try {    
         let body = req.body
+        
         console.log(body)
 
         if(!body.password || !body.name || !body.email){
@@ -45,7 +46,9 @@ router.post('/register', async (req, res)=> {
 
             if(!checkEmail){
                 const newUser = await connection.db.db("scuno").collection("users").insertOne({...body})
-                const insertFirstYear = await connection.db.db("scuno").collection("years").insertOne({year: new Date().getFullYear(), subjects: {}, user: newUser.insertedId })
+
+                let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? [new Date().getFullYear() - 1, new Date().getFullYear()] : [new Date().getFullYear(), new Date().getFullYear() + 1]
+                const insertFirstYear = await connection.db.db("scuno").collection("years").insertOne({years, subjects: {}, user: newUser.insertedId })
     
                 res.json({success: true})
             }else {

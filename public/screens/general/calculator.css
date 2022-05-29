@@ -1,8 +1,28 @@
 .calculator-inputs {
     display: grid;
     grid-template: 1fr / auto auto auto;
+    grid-gap: 30px;
 }
-
+.calculator-inputs input {
+    width: calc(100% - 30px);
+    /* text-align: right; */
+    padding: 5px 15px;
+    border-radius: 7.5px;
+}
+.calculator-calculate {
+    background-color: var(--accentColor);
+    width: 100%;
+    height: 26px;
+    border-radius: 7.5px;
+}
+.calculator-calculate-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.calculator-yourGrade {
+    margin-top: 40px;
+}
 
 
 
@@ -11,10 +31,46 @@
 .calculator-possibilities {
     display: grid;
     grid-template: 1fr / 1fr 1fr;
+    grid-gap: 10px 75px;
 }
 .calculator-possibility {
     display: flex;
     justify-content: space-between;
-    background-color: var(--grey);
+    background-color: var(--primary);
     padding: 5px 30px;
+}
+
+
+
+
+
+
+
+@media (max-width: 640px) {
+    .calculator-container h1 {
+        text-align: center;
+    }
+
+    .calculator-possibilities {
+        grid-gap: 10px 25px;
+    }
+    .calculator-inputs {
+        grid-template: auto auto auto / 1fr;
+        grid-gap: 30px;
+    }
+    .calculator-inputs p {
+        margin-top: 0;
+    }
+    .calculator-inputs input {
+        width: calc(100% - 50px);
+        padding: 5px 25px;
+    }
+
+
+    .calculator-possibility {
+        padding: 5px 10px;        
+    }
+    .calculator-possibility p{
+        font-size: 12px;
+    }
 }

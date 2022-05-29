@@ -14,7 +14,7 @@
             <a href="/" class="header-logo-link"><img src="" alt="logo" /></a>
             <ul class="header-container-list">
                 <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/archiv">Archiv</a></li>
+                <!-- archive deleted -->
                 <li><a href="/rechner">Rechner</a></li>
                 <li><button onclick="logout()">Abmelden</button></li>
                 <li class="header-einstellungen"><a href="/einstellungen"><img src="images/settings.png" alt="einstellungen" /></a></li>
@@ -24,7 +24,7 @@
         <div class="header-container-mobile">
             <ul>
                 <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/archiv">Archiv</a></li>
+                <!-- archive deleted -->
                 <li><a href="/rechner">Rechner</a></li>
                 <li><a href="/einstellungen">Einstellungen</a></li>
                 <li><button onclick="logout()">Abmelden</button></li>
@@ -33,25 +33,31 @@
 
     </header>
     <body>
-        <h1> Rechner </h1> 
-        <div class="calculator-inputs">
-
-            <div>
-                <p> Erreichte Punkte </p> 
-                <input type="number" class="calculator-yours" />          
-            </div>     
-            
-            <div>
-                <p> Erreichbare Punktzahl </p>
-                <input type="number" class="calculator-max" />     
+        <div  class="calculator-container">
+            <h1> Rechner </h1> 
+            <div class="calculator-inputs">
+    
+                <div>
+                    <p> Erreichte Punkte </p> 
+                    <input type="number" class="calculator-yours" />          
+                </div>     
+                
+                <div>
+                    <p> Erreichbare Punktzahl </p>
+                    <input type="number" class="calculator-max" />     
+                </div>
+    
+                <div class="calculator-calculate-container">
+                    <button onclick="calculateGrade()" class="calculator-calculate">Ausrechnen</button>
+                </div>
+                            
             </div>
+            <div class="calculator-yourGrade">
+                <p>Deine Note: <span class="calculated-grade"></span></p>
+            </div>
+            <div class="calculator-possibilities"></div>            
+        </div>
 
-            <button onclick="calculateGrade()">Ausrechnen</button>            
-        </div>
-        <div>
-            <p>Deine Note: <span class="calculated-grade"></span></p>
-        </div>
-        <div class="calculator-possibilities"></div>
     </body>
     <footer>
 
