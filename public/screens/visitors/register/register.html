@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> <link rel="icon" type="image/x-icon" href="/images/scuno_icon.png">
         <link rel="stylesheet"  href="screens/general/general.css">
         <link rel="stylesheet"  href="screens/visitors/register/register.css">
         <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     </head>
     <header>
         <div class="header-container">
-            <a href="/" class="header-logo-link"><img src="" alt="logo" /></a>
+            <a href="/" class="header-logo-link"><img src="/images/scuno_logo.png" alt="logo" /></a>
             <ul class="header-container-list">
                 <li><a href="/">Home</a></li>
                 <li><a href="/rechner">Rechner</a></li>               
@@ -29,26 +29,28 @@
             </ul> 
         </div>
     </header>
-    <body>
-        <div class="register-container">
-            <h1>Registrieren</h1>
-            <div class="register-input-container">
-                <p>Name</p>
-                <input class="register-name" type="text" />
+    <body> 
+        <div class="body">
+            <div class="register-container">
+                <h1>Registrieren</h1>
+                <div class="register-input-container">
+                    <p>Name</p>
+                    <input class="register-name" type="text" />
+                </div>
+                <div class="register-input-container">
+                    <p>Email</p>
+                    <input class="register-email" type="text" />
+                </div>
+                <div class="register-input-container">
+                    <p>Passwort</p>
+                    <input class="register-password1" type="text" />
+                </div>
+                <div class="register-input-container">
+                    <p>Passwort wiederholen</p>
+                    <input class="register-password2" type="text" />
+                </div>
+                <button onclick="register()" class="register-submit">Bestätigen</button>      
             </div>
-            <div class="register-input-container">
-                <p>Email</p>
-                <input class="register-email" type="text" />
-            </div>
-            <div class="register-input-container">
-                <p>Passwort</p>
-                <input class="register-password1" type="text" />
-            </div>
-            <div class="register-input-container">
-                <p>Passwort wiederholen</p>
-                <input class="register-password2" type="text" />
-            </div>
-            <button onclick="register()" class="register-submit">Bestätigen</button>      
         </div>
         
     </body>

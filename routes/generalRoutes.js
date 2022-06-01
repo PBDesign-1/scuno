@@ -101,18 +101,29 @@ router.post("/subject", async (req, res)=>{
         if(!!req.session.user){
             let { newSubject, classtests, tests, oralGrades, years } = req.body
             years = years.split("-").map(y=>parseFloat(y)).sort((a,b)=>a - b)
-            tests = parseFloat(tests)
-            classtests = parseFloat(classtests)
-            oralGrades = parseFloat(oralGrades)
+            
+            const subjectCheck = await connection.db.db("scuno").collection("years").findOne({user: ObjectId(req.session.user), years})
+            console.log(subjectCheck, years)
 
-            const pushNewSubject = await connection.db.db("scuno").collection("years").updateOne({user: ObjectId(req.session.user), years}, {$set: {subjects: {[newSubject]: {percentages: { tests, classtests, oralGrades }, tests: [], classtests: [], oralGrades: []}}}})
-            console.log(pushNewSubject)
-            res.json({success: true})
+            if(!!subjectCheck.subjects[newSubject]){
+                res.json({success: false, exists: true})
+            }else {
+                
+                tests = parseFloat(tests)
+                classtests = parseFloat(classtests)
+                oralGrades = parseFloat(oralGrades)
+    
+                const pushNewSubject = await connection.db.db("scuno").collection("years").updateOne({user: ObjectId(req.session.user), years}, {$set: {[`subjects.${newSubject}`]: {percentages: { tests, classtests, oralGrades }, tests: [], classtests: [], oralGrades: [] }}})
+                console.log(pushNewSubject)
+                res.json({success: true, exists: false})                
+            }
+
         }else{
-            res.json({success: false})
+            res.json({success: false, exists: false})
         }
     }catch(err){
-        res.json({success: false})
+        console.log(err)
+        res.json({success: false, exists: false, err})
     }
 })
 

@@ -5,8 +5,8 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     const fetchCurrentYearRaw = await fetch(`/general/getYear/${years}`)
     const fetchCurrentYear = await fetchCurrentYearRaw.json()
 
-    console.log(fetchCurrentYearRaw)
-    console.log(fetchCurrentYear)
+    // console.log(fetchCurrentYearRaw)
+    // console.log(fetchCurrentYear)
     
     const {subjects} = fetchCurrentYear.response
     let grades = []
@@ -43,22 +43,22 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     
     const bestnote = sortedGrades.length > 0 ? sortedGrades[0].grade : "Noch keine Noten"
     const besteNoten = sortedGrades.slice(0, 20).reduce((all, grade)=> all + `<div class="dashboard-besteNoten-part"><p>${grade.grade}</p><p>${grade.subject}</p><p>${grade.type}</p></div>`, "")
-    const durchschnitt = (sortedSubjects.reduce((all, part)=>all + part.durchschnitt, 0) / sortedSubjects.length).toFixed(3) || sortedSubjects[0].durchschnitt.toFixed(3) || "Noch keine Noten"
+    const durchschnitt = parseInt((sortedSubjects.reduce((all, part)=>all + part.durchschnitt || 0, 0) / sortedSubjects.filter(s=>!!s.durchschnitt).length) * 1000) / 1000 || sortedSubjects[0].durchschnitt.toFixed(3) || "Noch keine Noten"
 
-    console.log(sortedSubjects, durchschnitt)
+    // console.log(sortedSubjects, durchschnitt)
     const subjectOptions = subjectNamesArray.reduce((all, sub)=>all + `<option>${sub}</option>`, "") 
-    const subjectsMapped = sortedSubjects.map(sub=>`<div><p>${sub.subject}</p><p>${(sub.durchschnitt * 1000) / 1000}</p><p>${sub.classtests}</p><p>${sub.tests}</p><p>${sub.oralGrades}</p></div>`).reduce((all, sub)=> all + sub, "")
+    const subjectsMapped = sortedSubjects.map(sub=>`<div class='dashboard-fach'><p>${sub.subject}</p><p>${(sub.durchschnitt * 1000) / 1000}</p><p class='delete-mobile'>${sub.classtests}</p><p  class='delete-mobile'>${sub.tests}</p><p  class='delete-mobile'>${sub.oralGrades}</p><img alt="x" class="dashboard-fach-x" src="images/x.png" /></div>`).reduce((all, sub)=> all + sub, "")
 
 
     document.querySelector(".dashboard-selectYear").innerHTML = fetchCurrentYear.years.reduce((all, y)=>all + `<option>${y[0]}-${y[1]}</option>`, "")
     document.querySelector(".dashboard-selectYear").value = years
 
     document.querySelector(".dashboard").innerHTML = (
-        `<div class="dashboard-part dashboard-durchschnitt"> <p>Durchschnitt</p> <h2>${durchschnitt}</h2></div>` + 
+        `<div class="dashboard-part dashboard-durchschnitt"> <p>Durchschnitt</p> <h2>${durchschnitt || "Noch keine Noten"}</h2></div>` + 
         `<div class="dashboard-part dashboard-bestesFach"><p>Bestes Fach</p><h2>${sortedGrades[0] ? sortedGrades[0].subject : "Noch keine Noten"}</h2></div>` +
         `<div class="dashboard-part dashboard-besteNoten"><h2>Beste Noten</h2><div>${besteNoten}</div></div>` +
-        (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input min=0 max=6 type='number' class="dashboard-addGrade-grade" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
-        `<div class="dashboard-part dashboard-fächer"><div class="dashboard-fächer-info"><p>Fächer</p><p>Durchschnitt</p><p>Klassenarbeiten</p><p>Tests</p><p>mündlich</p></div><div>${subjectsMapped}</div><button class="dashboard-addSubject" onclick="openSubjectModal()">Neues Fach hinzufügen</button></div>`
+        (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input class="dashboard-noteHinzufügen-neueNote" min=0 max=6 type='number' placeholder="Deine Note" class="dashboard-addGrade-grade" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
+        `<div class="dashboard-part dashboard-fächer"><div class="dashboard-fächer-info"><p>Fächer</p><p>Durchschnitt</p><p class='delete-mobile'>Klassenarbeiten</p><p class='delete-mobile'>Tests</p><p class='delete-mobile'>mündlich</p></div><div class='dashboard-fächer-content'>${subjectsMapped}</div><button class="dashboard-addSubject" onclick="openSubjectModal()">Neues Fach hinzufügen</button></div>`
     );
 }
 
@@ -93,6 +93,7 @@ async function addGrade (){
                 years
             })
         })
+        init()
     }
 
 }
@@ -116,7 +117,7 @@ async function addSubject(){
     const tests = parseFloat(document.querySelector(".dashboard-subjectModal-testsInput").value) / 100
     const oralGrades = parseFloat(document.querySelector(".dashboard-subjectModal-oralGradesInput").value) / 100
 
-    if(newSubject === "" || !newSubject    || classtests === "" || !classtests    || tests === "" || !tests    || oralGrades === "" || !oralGrades  ){
+    if(newSubject === "" || !newSubject    || classtests === "" || (!classtests && classtests !== 0)    || tests === "" || (!tests && tests !== 0)    || oralGrades === "" ||(!oralGrades && oralGrades !== 0)  ){
         console.log("some undefined")
     } else if(classtests + tests + oralGrades !== 1){
         console.log("!== 0")
@@ -136,7 +137,8 @@ async function addSubject(){
             })
             
         })
-        console.log(adding)
+        const addingResponse = await adding.json()
+        console.log(addingResponse)
         closeSubjectModal()
         init()
     }

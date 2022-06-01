@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> <link rel="icon" type="image/x-icon" href="/images/scuno_icon.png">
         <link rel="stylesheet"  href="screens/general/general.css">
         <link rel="stylesheet"  href="screens/visitors/login/login.css">
         <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     </head>
     <header>
         <div class="header-container">
-            <a href="/" class="header-logo-link"><img src="" alt="logo" /></a>
+            <a href="/" class="header-logo-link"><img src="/images/scuno_logo.png" alt="logo" /></a>
             <ul class="header-container-list">
                 <li><a href="/">Home</a></li>
                 <li><a href="/rechner">Rechner</a></li>               
@@ -31,22 +31,24 @@
     </header>
 
 
-    <body>
-        <div class="login-container">
-            <h1>Login</h1>
-            <div class="login-input-container">
-                <p>Email</p>
-                <input class="login-email" type="text" />
+    <body> 
+        <div class="body">
+            <div class="login-container">
+                <h1>Login</h1>
+                <div class="login-input-container">
+                    <p>Email</p>
+                    <input class="login-email" type="text" />
+                </div>
+                <div class="login-input-container">
+                    <p>Passwort</p>
+                    <input class="login-password" type="password" />
+                </div>
+                <button class="login-submit" onclick="login()">Bestätigen</button>
+                <a href="/registrieren"><button class="login-registrieren">Ich möchte mich registrieren</button></a>         
             </div>
-            <div class="login-input-container">
-                <p>Passwort</p>
-                <input class="login-password" type="password" />
-            </div>
-            <button class="login-submit" onclick="login()">Bestätigen</button>
-            <a href="/registrieren"><button class="login-registrieren">Ich möchte mich registrieren</button></a>         
         </div>
-
-        
+    
+            
     </body>
     <footer>
 

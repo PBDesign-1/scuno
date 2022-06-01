@@ -1,7 +1,7 @@
 .dashboard {
     display: grid;
     grid-template: auto auto auto / 1fr 1fr 1fr;
-    grid-gap: 40px;
+    grid-gap: 24px;
 
 }
 
@@ -21,8 +21,15 @@
 
 .dashboard-part {
     background-color: var(--primary);
-    padding: 30px;
+    padding: 40px;
     border-radius: 15px;
+}
+.dashboard-part > p {
+    margin-top: 0;
+    font-size: 15px;
+}
+.dashboard-part > h2{
+    margin-bottom: 0;
 }
 
 
@@ -47,13 +54,38 @@
 }
 .dashboard-fächer-info {
     display: grid;
-    grid-template: 1fr / repeat(5, 18%);
+    grid-template: 1fr / repeat(5, 17%) 5%;
     justify-content: space-between;
 }
 .dashboard-fächer-info p {
-    font-size: 12px;
+    font-size: 11px;
     text-align: center;
 }
+.dashboard-fach {
+    display: grid;
+    grid-template: 1fr / repeat(5, 17%) 5% ;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background);
+    opacity: 0.8;
+    border-radius: 10px;
+    padding: 7.5px 10px;
+    margin-bottom: 5px;
+}
+.dashboard-fach p {
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+}
+.dashboard-fächer-content {
+    margin-bottom: 20px;
+}
+.dashboard-fach-x {
+    height: 12px;
+}
+
+
+
 .dashboard-noteHinzufügen {
     display: flex;
     justify-content: space-between;
@@ -64,8 +96,16 @@
 
 
 .dashboard-addGrade {
+    padding: 5px 10px;
     background-color: var(--accentColor);
+    border-radius: 7px;
+    font-size: 12px;
 }
+
+
+
+
+
 
 
 
@@ -138,4 +178,74 @@
 }
 .dashbord-subjectModal-buttons-close {
     background-color: var(--background);
+}
+
+
+
+
+
+@media (max-width: 640px) {
+    .dashboard {
+        grid-template: auto / 100%;
+        grid-gap: 25px;
+    
+    }
+
+
+    .dashboard-part {
+        padding: 40px 30px;
+    }
+    .dashboard-part > p {
+        margin-top: 0;
+        text-align: center;
+        /* font-size: ; */
+    }
+    .dashboard-part > h2{
+        margin-bottom: 0;
+        text-align: center;
+        font-size: 25px;
+        margin-top: 0;
+    }
+
+
+    .dashboard-besteNoten {
+        grid-row: 5;
+        grid-column: 1;
+    }
+    .dashboard-noteHinzufügen {
+        display: grid;
+        grid-template: auto auto auto / 1fr 1fr;
+        grid-gap: 10px;
+    }
+
+
+
+    .dashboard-fach, .dashboard-fächer-info {
+        grid-template: 1fr / 50% 40% 5% ;
+    }
+
+
+
+
+    .dashboard-noteHinzufügen, .dashboard-fächer {
+        grid-column: 1;
+    }
+    .dashboard-noteHinzufügen {
+        grid-row: 3;
+    }
+    .dashboard-fächer {
+        grid-row: 4;
+    }
+
+
+
+    .dashboard-noteHinzufügen select,.dashboard-noteHinzufügen input  {
+        padding: 5px 10px;
+        border-radius: 7px;
+        font-size: 12px;
+        border: 1.5px rgba(233, 233, 233, .7) solid;
+    }
+    .dashboard-addGrade-selectSubject, .dashboard-addGrade {
+        grid-column: 1/3;
+    }
 }

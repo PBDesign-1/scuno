@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> 
+        <link rel="icon" type="image/x-icon" href="/images/scuno_icon.png">
         <link rel="stylesheet"  href="screens/general/general.css">
-        <link rel="stylesheet"  href="screens/visitors/home/home.css">
+        <link rel="stylesheet"  href="screens/visitors/home//home.css">
         <meta charset="UTF-8">
         <meta sameSite=Lax >
         <meta name="viewport" content="width=device-width intial-scale=1">
@@ -11,7 +12,7 @@
     </head>
     <header>
         <div class="header-container">
-            <a href="/" class="header-logo-link"><img src="" alt="logo" /></a>
+            <a href="/" class="header-logo-link"><img src="/images/scuno_logo.png" alt="logo" /></a>
             <ul class="header-container-list">
                 <li><a href="/">Home</a></li>
                 <li><a href="/rechner">Rechner</a></li>               
@@ -29,40 +30,64 @@
             </ul> 
         </div>
     </header>
-    <body>
-        <div class="home-content">
-            <h1> Alle deine Noten an einem Ort </h1>
-            <img src="">
-              <h2> Verwaltung </h2>
-            <img src="">
-              <h2> Statistiken </h2>
-            <img src="">
-            <p1>
-            </p1>
-             
-            <p2>
-             <!-- <style>
-                  .button {
-                  background-color: #0F02FA;
-                  border: none;
-                  color: white;
-                  padding: 20px 34px;
-                  text-align: center;
-                  text-decoration: none;
-                  display: inline-block;
-                  font-size: 20px;
-                  margin: 4px 2px;
-                  cursor: pointer;
-                  }
-                </style> -->
-                <a href="/anmelden" class="button">Jetzt anmelden</a>
-            </p2>            
+    <body> 
+        <div class="body">
+            <div class="home-content">
+                <div class="home-hero">
+                    <div class="home-hero-text">
+                        <div class="home-hero-text-content">
+                            <h1> Alle deine Noten an einem Ort </h1>
+                            <p>Mit Scuno kannst du all deine Noten in einer App verwalten und aussrechnen.</p>   
+                            <div class="home-hero-buttons">
+                                <a href="/registrieren"><button class="hero-text-aussrechnen">Note ausrechnen</button></a>
+                                <a href="/rechner"><button class="hero-text-registrieren">Registrieren</button></a>
+                            </div>                         
+                        </div>
+
+                    </div>
+                    <div>
+                        <img class="home-hero-mockup" src="/images/phoneMockup1.png" alt="" />
+                    </div>
+                </div>
+    
+    
+    
+                <div class="home-infosheets">
+                    <div class="home-organize home-infosheet">
+                        <div>
+                            <h2>Überprüfe deine Noten</h2>
+                            <p>Rechne deine Noten mit unserem Rechner ganz einfach aus und finde heraus welche Note du bekommen würdest oder ob deine Note stimmt. Gib einfach deine Erreichten und die Erreichbaren Punkte ein und bekomme deine Note auf ein Tausendstel genau ausgerechnet.</p>
+                        </div>
+                        <div class="home-infosheet-img">
+                            <img alt="" src="/images/calculator.jpg"  class="home-infosheet-img-img" />
+                            <div class="home-infosheet-img-background"></div>
+                        </div>
+                    </div>
+    
+                    <div class="home-calculate home-infosheet">
+                        <div>
+                            <h2>Ein Überblick wo du stehst</h2>
+                            <p>Bekomme eine Überblick über all deine Fächer, deine Durchnittsnote und vieles mehr. Sammle deine Noten in mündliche Noten, Tests und Klassenarbeiten unterteilt und auf ihre Prozente aufgeteilt.  </p>
+                        </div>
+                        <div class="home-infosheet-img">
+                            <img  class="home-infosheet-img-img" alt="" src="/images/organize.jpg" />
+                            <div class="home-infosheet-img-background"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button">
+                    <a href="/anmelden"><button>Anmelden</button> </a> 
+                </div>
+                         
+            </div>
         </div>
 
     </body>
-    <footer>
-
+    <footer class="visitor-footer">
+        <div>
+            <p>Impressum</p>
+            <!-- <p>DSGVO</p> -->
+        </div>
     </footer>
-    <script src="screens/general/general.js" type="text/javascript"></script> 
-    <script src="screens/members/" type="text/javascript"></script> 
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>        
+    <head> <link rel="icon" type="image/x-icon" href="/images/scuno_icon.png">        
         <link rel="stylesheet"  href="screens/general/general.css">
         <link rel="stylesheet"  href="screens/members/settings/settings.css">
 
@@ -12,7 +12,7 @@
     </head>
     <header>
         <div class="header-container">
-            <a href="/" class="header-logo-link"><img src="" alt="logo" /></a>
+            <a href="/" class="header-logo-link"><img src="/images/scuno_logo.png" alt="logo" /></a>
             <ul class="header-container-list">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <!-- archive deleted -->
@@ -33,22 +33,24 @@
         </div>
 
     </header>
-    <body>
-        <div class="login-container">
-            <h1>Einstellungen</h1>
-            <div class="login-input-container">
-                <p>Name</p>
-                <input class="settings-name" onchange="newChange('name')" on type="text" />
+    <body> 
+        <div class="body">
+            <div class="login-container">
+                <h1>Einstellungen</h1>
+                <div class="login-input-container">
+                    <p>Name</p>
+                    <input class="settings-name" onchange="newChange('name')" on type="text" />
+                </div>
+                <div class="login-input-container">
+                    <p>Email</p>
+                    <input class="settings-email" onchange="newChange('email')" type="text" />
+                </div>
+                <div class="login-input-container">
+                    <p>Neues Passwort</p>
+                    <input class="settings-password" onchange="newChange('password')" type="text" />
+                </div>
+                <button class="login-submit" onclick="commitChanges()">Bestätigen</button>      
             </div>
-            <div class="login-input-container">
-                <p>Email</p>
-                <input class="settings-email" onchange="newChange('email')" type="text" />
-            </div>
-            <div class="login-input-container">
-                <p>Neues Passwort</p>
-                <input class="settings-password" onchange="newChange('password')" type="text" />
-            </div>
-            <button class="login-submit" onclick="commitChanges()">Bestätigen</button>      
         </div>
     </body>
     <footer>

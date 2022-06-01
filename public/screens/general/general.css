@@ -58,10 +58,11 @@ input, select {
 header {
     padding: 30px 0;
 }
-body {
+.body, header {
     width: 70%;
     margin: 0 auto;
 }
+
 
 
 
@@ -92,6 +93,9 @@ header ul {
     align-items: center;
     justify-content: center; 
     font-size: 17px;
+}
+header button {
+    font-size: 14px;
 }
 .header-einstellungen img {
     height: 10px;
@@ -143,11 +147,11 @@ header ul {
     margin: 0;    
 } 
 .header-container-mobile ul li {
-    font-size: 27px; 
+    font-size: 37px; 
     text-align: center;
 }
 .header-container-mobile a button {
-    font-size: 20px; 
+    font-size: 30px; 
     text-align: center;
 }
 .header-container-mobile ul li {
@@ -164,14 +168,39 @@ header button {
 
 
 
+
+
+
+footer {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer p {
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 640px) {
-    body {
-        width: 75%;
+    .body, header {
+        width: 80%;
     }
 
 
 
-    .header-container img, .header-toggle-img {
+    .header-toggle-img {
         height: 40px;
         width: 40px;
     }
@@ -197,5 +226,38 @@ header button {
     header button {
         font-size: 20px;
         padding: 5px 10px;
+    }
+
+
+
+
+
+
+
+    .delete-mobile {
+        display: none;
+    }
+}
+
+
+
+
+@media (min-width: 641px) and (max-width: 1007px) {
+    .header-container-list {
+        gap: 20px;
+    }
+}
+
+
+
+@media (min-width: 1008px){
+    .header-container-list {
+        gap: 50px;
+    }
+    .header-container-list li a {
+        font-size: 20px;
+    }
+    header button {
+        font-size: 17px;
     }
 }
