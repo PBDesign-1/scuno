@@ -127,6 +127,34 @@ router.post("/subject", async (req, res)=>{
     }
 })
 
+router.post("/deleteSubject", async (req, res)=>{
+    try{
+        if(!!req.session.user){
+            let { years, subject } = req.body
+            years = years.split("-").map(y=>parseFloat(y)).sort((a,b)=>a - b)
+
+            const yearDoc = await connection.db.db("scuno").collection("years").findOne({user: ObjectId(req.session.user), years})
+
+            let subjects = yearDoc.subjects
+            delete subjects[subject]
+
+
+
+            const uploadYearDoc = await connection.db.db("scuno").collection("years").updateOne({user: ObjectId(req.session.user), years}, {$set: {subjects}})
+
+            res.json({success: true})
+
+        }else{
+            res.json({success: false, exists: false})
+        }
+    }catch(err){
+        console.log(err)
+        res.json({success: false, exists: false, err})
+    }
+})
+
+
+
 router.post("/grade", async (req, res)=>{
     try{
         if(!!req.session.user){
@@ -152,7 +180,36 @@ router.post("/grade", async (req, res)=>{
         res.json({success: false, err})
     }
 })
+router.post("/deleteGrade", async (req, res)=>{
+    try{
+        if(!!req.session.user){
+            let { type, index, subject, years } = req.body
+            console.log(req.body)
+            years = years.split("-").map(y=>parseFloat(y)).sort((a,b)=>a - b)
+            
+            if(type === "Mündlich" || type === "mündlich" || type === "mündl." ){
+                type = "oralGrades"
+            }else if(type === "Klassenarbeit" || type === "klassenarbeit"){
+                type = "classtests"
+            }else if (type === "Test" || type === "test"){
+                type = "tests"
+            }
 
+            const gradeDoc = await connection.db.db("scuno").collection("years").findOne({user: ObjectId(req.session.user), years})
+
+            let grades = gradeDoc.subjects[subject][type].filter((g, i)=>i !== index)
+
+            const updateGrades = await connection.db.db("scuno").collection("years").updateOne({user: ObjectId(req.session.user), years}, {$set: {[`subjects.${subject}.${type}`]: grades }})
+
+            res.json({success: true})
+        }else{
+            res.json({success: false})
+        }
+    }catch(err){
+        console.log(err)
+        res.json({success: false, err})
+    }
+})
 
 
 

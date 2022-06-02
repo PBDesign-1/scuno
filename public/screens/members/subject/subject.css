@@ -1,0 +1,104 @@
+.subject-info {
+    background-color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+
+.subject-grade {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary);
+    padding: 7.5px 20px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+.subject-grade p{
+    margin: 0;
+}
+.subject-grade img{
+    height: 25px;
+    cursor: pointer;
+}
+
+
+
+.subject-content {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr;
+    grid-gap: 40px;
+}
+.subject-content h2 {
+    font-size: 17.5px;
+}
+
+
+
+
+.subject-noteHinzufügen {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+.subject-addGrade {
+    padding: 5px 10px;
+    background-color: var(--accentColor);
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+
+
+@media (max-width: 640px){
+    .subject-content {
+        grid-template: auto auto auto / 1fr;
+        grid-gap: 20px;
+    }
+
+    .subject-noteHinzufügen {
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .subject-addGrade {
+        padding: 5px 10px;
+        background-color: var(--accentColor);
+        border-radius: 7px;
+        font-size: 12px;
+    }
+
+
+
+    .subject-info {
+        display: grid;
+        grid-template: auto auto / 1fr;
+        padding: 10px 20px;
+    }
+    .subject-noteHinzufügen {
+        display: grid;
+        grid-template: auto auto auto / 1fr 1fr;
+        grid-gap: 10px;
+        width: 100%;
+    }
+    .subject-info h1{
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 22.5px;
+    }
+
+    .subject-noteHinzufügen select,.subject-noteHinzufügen input  {
+        padding: 5px 10px;
+        border-radius: 7px;
+        font-size: 12px;
+        border: 1.5px rgba(233, 233, 233, .7) solid;
+    }
+    .subject-addGrade-selectSubject, .subject-addGrade {
+        grid-column: 1/3;
+    }
+}
