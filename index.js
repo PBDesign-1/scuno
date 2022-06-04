@@ -31,6 +31,7 @@ const authenticationRoutes = require("./routes/authenticationRoutes");
 app.use("/authentication", authenticationRoutes)
 
 const generalRoutes = require("./routes/generalRoutes");
+const res = require('express/lib/response');
 app.use("/general", generalRoutes)
 
 
@@ -64,6 +65,7 @@ app.get("/registrieren", (req, res)=>{
 
 
 
+
 //Visitors and Members
 app.get("/rechner", (req, res)=>{
     if(req.session.user){
@@ -72,6 +74,22 @@ app.get("/rechner", (req, res)=>{
         res.sendFile(path.join(__dirname, "public/screens/visitors/calculator/calculator.html"))
     }
 })
+app.get("/impressum", (req, res)=>{
+    if(req.session.user){
+        res.sendFile(path.join(__dirname, "public/screens/rechtliches/impressum/impressumMembers.html"))
+    }else {
+        res.sendFile(path.join(__dirname, "public/screens/rechtliches/impressum/impressum.html"))
+    }
+})
+app.get("/datenschutzerklearung", (req, res)=>{
+    if(req.session.user){
+        res.sendFile(path.join(__dirname, "public/screens/rechtliches/datenschutzerklärung/datenschutzerklärungMembers.html"))
+    }else {
+        res.sendFile(path.join(__dirname, "public/screens/rechtliches/datenschutzerklärung/datenschutzerklärung.html"))
+    }
+})
+
+
 
 
 
@@ -91,13 +109,6 @@ app.get("/fach", (req, res)=>{
         res.redirect("/anmelden")
     }
 })
-// app.get("/archiv", (req, res)=>{
-//     if(req.session.user){
-//         res.sendFile(path.join(__dirname, "public/screens/members/archive/archive.html"))
-//     }else {
-//         res.redirect("/anmelden")
-//     }
-// })
 app.get("/einstellungen", (req, res)=>{
     if(req.session.user){
         res.sendFile(path.join(__dirname, "public/screens/members/settings/settings.html"))
@@ -112,7 +123,13 @@ app.get("/einstellungen", (req, res)=>{
 
 
 
-
+app.get("*", (req, res)=>{
+    if(!!req.session.user){
+        res.redirect("/dashboard")
+    }else {
+        res.redirect("/")
+    }
+})
 
 
 app.listen(PORT, ()=>{

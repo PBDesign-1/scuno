@@ -6,7 +6,7 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     const fetchCurrentYear = await fetchCurrentYearRaw.json()
 
     // console.log(fetchCurrentYearRaw)
-    // console.log(fetchCurrentYear)
+    console.log(fetchCurrentYear)
     
     const {subjects} = fetchCurrentYear.response
     let grades = []
@@ -21,9 +21,9 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
         const {classtests, tests, oralGrades} = subject
         const allPercentages = (subject.tests.length > 0 ? subject.percentages.tests : 0) + (subject.classtests.length > 0 ? subject.percentages.classtests : 0) + (subject.oralGrades.length > 0 ? subject.percentages.oralGrades : 0);
         
-        let testDurchschnitt =  (tests.reduce((all, part)=>all + part.grade, 0) / tests.length) || tests[0] || 0
-        let classtestDurchschnitt =  (classtests.reduce((all, part)=>all + part.grade, 0) / classtests.length) || classtests[0] || 0
-        let oralGradesDurchschnitt =  (oralGrades.reduce((all, part)=>all + part.grade, 0) / oralGrades.length) || oralGrades[0] || 0
+        let testDurchschnitt =  (tests.reduce((all, part)=>all + part, 0) / tests.length) || tests[0] || 0
+        let classtestDurchschnitt =  (classtests.reduce((all, part)=>all + part, 0) / classtests.length) || classtests[0] || 0
+        let oralGradesDurchschnitt =  (oralGrades.reduce((all, part)=>all + part, 0) / oralGrades.length) || oralGrades[0] || 0
 
         subjectArray.push({subject: key, durchschnitt: (testDurchschnitt * calcPerc(subject.percentages.tests, allPercentages) + classtestDurchschnitt * calcPerc(subject.percentages.classtests, allPercentages) + oralGradesDurchschnitt * calcPerc(subject.percentages.oralGrades, allPercentages)), tests: tests.length, classtests: classtests.length, oralGrades: oralGrades.length})
 
@@ -42,9 +42,8 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     const sortedSubjects = subjectArray.sort((a, b)=>a.durchschnitt - b.durchschnitt)     
     
     const besteNoten = sortedGrades.slice(0, 20).reduce((all, grade)=> all + `<div class="dashboard-besteNoten-part"><p>${grade.grade}</p><p>${grade.subject}</p><p>${grade.type}</p></div>`, "")
-    const durchschnitt = parseInt((sortedSubjects.reduce((all, part)=>all + part.durchschnitt || 0, 0) / sortedSubjects.filter(s=>!!s.durchschnitt).length) * 1000) / 1000 || sortedSubjects[0].durchschnitt.toFixed(3) || "Noch keine Noten"
+    const durchschnitt = (parseInt(((sortedSubjects.reduce((all, part)=>all + (part.durchschnitt || 0), 0) / sortedSubjects.filter(s=>!!s.durchschnitt).length)) * 1000) / 1000) || (sortedSubjects.length > 0 ? parseInt(sortedSubjects[0].durchschnitt * 1000) / 1000 : "-")
 
-    // console.log(sortedSubjects, durchschnitt)
     const subjectOptions = subjectNamesArray.reduce((all, sub)=>all + `<option>${sub}</option>`, "") 
     const subjectsMapped = sortedSubjects.map(sub=>`<div class='dashboard-fach' onclick='openSubjectRoute("${sub.subject}")'><p>${sub.subject}</p><p>${parseInt(sub.durchschnitt * 1000) / 1000 || "-"}</p><p class='delete-mobile'>${sub.classtests}</p><p  class='delete-mobile'>${sub.tests}</p><p  class='delete-mobile'>${sub.oralGrades}</p><img alt="x" onclick="deleteSubject(${sub.subject})" class="dashboard-fach-x" src="images/x.png" /></div>`).reduce((all, sub)=> all + sub, "")
 
@@ -53,7 +52,7 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     document.querySelector(".dashboard-selectYear").value = years
 
     document.querySelector(".dashboard").innerHTML = (
-        `<div class="dashboard-part dashboard-durchschnitt"> <p>Durchschnitt</p> <h2>${durchschnitt || "Noch keine Noten"}</h2></div>` + 
+        `<div class="dashboard-part dashboard-durchschnitt"> <p>Durchschnitt</p> <h2>${durchschnitt || "-"}</h2></div>` + 
         `<div class="dashboard-part dashboard-bestesFach"><p>Bestes Fach</p><h2>${sortedGrades[0] ? sortedGrades[0].subject : "Noch keine Noten"}</h2></div>` +
         `<div class="dashboard-besteNoten dashboard-part"><h2>Beste Noten</h2><div>${besteNoten}</div></div>` +
         (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input class="dashboard-noteHinzufügen-neueNote" min=0 max=6 type='number' placeholder="Note" class="dashboard-addGrade-grade" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
@@ -66,7 +65,7 @@ init()
 
 
 function onChangeYear(){
-    year = parseFloat(document.querySelector(".dashboard-selectYear").value)
+    years = document.querySelector(".dashboard-selectYear").value
     init()
 }
 
@@ -77,7 +76,7 @@ async function addGrade (){
     const grade = document.querySelector(".dashboard-addGrade-grade").value
 
     if(subject === "" || type === "" || grade === ""){
-
+        setErrorMessage("Dein Fach, deine Note oder die Art der Note sind nicht definiert")
     }else {
         const addNewGrade = await fetch("/general/grade", {
             method: "POST",
@@ -167,4 +166,15 @@ function deleteSubject (subject){
 function openSubjectRoute (subject){
     console.log(subject)
     window.location.assign(`/fach?subject=${subject}&years=${years}`)
+}
+
+
+
+
+
+function setErrorMessage(msg){
+
+}
+function setModalErrorMessage (){
+
 }

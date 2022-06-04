@@ -74,3 +74,10 @@ async function deleteGrade (type, index){
         })
     }).then(()=>init())
 }
+
+
+
+
+function setErrorMessage(msg){
+
+}

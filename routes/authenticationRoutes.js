@@ -52,7 +52,7 @@ router.post('/register', async (req, res)=> {
     
                 res.json({success: true})
             }else {
-                res.json({success: false})
+                res.json({success: false, msg: "Account mit dieser Email existiert bereits."})
             }                
         }
 
