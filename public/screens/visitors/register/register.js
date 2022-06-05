@@ -28,7 +28,7 @@ function register (){
                 })
             }).then(res=>res.json()).then(res=>{
                 if(res.success){
-                    location.assign("/login")
+                    location.assign("/anmelden")
                 }else if(res.msg){
                     setErrorMessage(res.msg)
                 }else{
@@ -45,5 +45,5 @@ function register (){
 
 
 function setErrorMessage(msg){
-    document.querySelector(".register-error-container").innerHTML = `<div><p>${msg}</p></div>`
+    document.querySelector(".register-error-container").innerHTML = `<div class="register-error"><p>${msg}</p></div>`
 }

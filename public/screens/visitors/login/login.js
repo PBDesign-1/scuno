@@ -34,5 +34,5 @@ function login (){
 
 
 function setErrorMessage(msg){
-    document.querySelector(".login-error-container").innerHTML = `<div><p>${msg}</p></div>`
+    document.querySelector(".login-error-container").innerHTML = `<div class="login-error"><p>${msg}</p></div>`
 }

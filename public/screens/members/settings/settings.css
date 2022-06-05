@@ -1,0 +1,78 @@
+.settings-container {
+    width: 50%;
+    margin: 0 auto;
+}
+.settings-container h1{
+    font-size: 25px;
+    text-align: center;
+}
+.settings-container button {
+    background-color: var(--accentColor);
+    width: 100%;
+    margin-top: 40px;
+    padding: 7.5px;
+}
+
+
+.settings-input-container {
+    margin-top: 20px;
+}
+.settings-input-container input{
+    width: calc(100% - 15px);
+    padding: 7.5px;
+}
+.settings-input-container p{
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.settings-error-container  {
+    height: 40px;
+}
+.settings-error {
+    width: 100%;
+    background-color: var(--accentColor);
+    padding: 0 10px;
+    height: 100%;
+    text-align: center;
+    animation: error 1s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.settings-error p {
+    margin: 0;
+    font-size: 12px;
+}
+
+@keyframes error {
+    0%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+@media (max-width: 640px) {
+    .settings-container {
+        width: 100%;
+    }
+}

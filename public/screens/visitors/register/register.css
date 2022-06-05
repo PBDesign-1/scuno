@@ -22,12 +22,62 @@
     font-size: 15px;
 }
 .register-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     background-color: var(--accentColor);
     padding: 9px;
     margin-top: 55px;
     font-size: 17.5px;
 }
+.register-submit img{
+    height: 20px;
+}
+.register-datenschutz {
+    text-align: center;
+    font-size: 12px;
+}
+.register-datenschutz a{
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+.register-error-container {
+    height: 40px;
+}
+.register-error {
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0 10px;
+    height: 100%;
+    text-align: center;
+    animation: error 1s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.register-error p {
+    margin: 0;
+}
+
+@keyframes error {
+    0%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 
 
 

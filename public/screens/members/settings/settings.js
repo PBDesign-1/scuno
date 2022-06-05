@@ -20,22 +20,30 @@ function newChange (type){
 }
 
 function commitChanges (){
-    console.log(changes)
-    fetch("/general/changeMe", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            changes
-        })
-    })
+    if(!!document.querySelector(".settings-error")){
+        document.querySelector(".settings-error").remove()
+    }
+    
+    if(Object.keys(changes).map(change=>(!!changes[change] && changes[change] !== "")).every(change=>change)){
+        fetch("/general/changeMe", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                changes
+            })
+        }).then(()=>init())    
+    }else {
+        setErrorMessage("Überprüfe deine Angaben")
+    }
+
 }
 
 
 
 
 function setErrorMessage(msg){
-
+    document.querySelector(".settings-error-container").innerHTML = `<div class="settings-error"><p>${msg}</p></div>`
 }

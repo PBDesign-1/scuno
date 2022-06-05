@@ -35,11 +35,18 @@ init()
 
 
 async function addGrade (){
+    if(!!document.querySelector(".subject-error")){
+        document.querySelector(".subject-error").remove()
+    }
+    
+
     const type = document.querySelector(".subject-addGrade-selectType").value
     const grade = document.querySelector(".subject-addGrade-grade").value
 
     if(subject === "" || type === "" || grade === ""){
-
+        setErrorMessage("Überprüfe deine Note")
+    }else if(grade < 1 || grade > 6){
+        setErrorMessage("Noten müssen sich zwischen 1 und 6 befinden")
     }else {
         const addNewGrade = await fetch("/general/grade", {
             method: "POST",
@@ -79,5 +86,5 @@ async function deleteGrade (type, index){
 
 
 function setErrorMessage(msg){
-
+    document.querySelector(".subject-error-container").innerHTML = `<div class="subject-error"><p>${msg}</p></div>`
 }

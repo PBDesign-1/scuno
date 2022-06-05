@@ -1,0 +1,15 @@
+.impressum {
+    width: fit-content;
+    margin: 0 auto;
+}
+.impressum-container {
+    display: flex;
+    justify-content: center;
+}
+.impressum h1 {
+    font-size: 30px;
+}
+.impressum h2 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}

@@ -1,7 +1,7 @@
 .login-container {
     width: 50%;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 60px;
 }
 .login-container h1 {
     text-align: center;
@@ -22,16 +22,22 @@
     font-size: 15px;
 }
 .login-container button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
 .login-submit {
+
     width: 100%;
     background-color: var(--accentColor);
     padding: 9px;
     margin-top: 55px;
     font-size: 17.5px;
+}
+.login-submit img{
+    height: 20px;
 }
 .login-registrieren {
     width: 60%;
@@ -42,6 +48,39 @@
     background-color: var(--primary);
 }
 
+
+
+
+
+
+
+.login-error-container {
+    height: 40px;
+}
+.login-error {
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0 10px;
+    height: 100%;
+    text-align: center;
+    animation: error 1s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.login-error p {
+    margin: 0;
+}
+
+@keyframes error {
+    0%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 
 

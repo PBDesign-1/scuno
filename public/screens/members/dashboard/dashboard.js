@@ -55,7 +55,7 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
         `<div class="dashboard-part dashboard-durchschnitt"> <p>Durchschnitt</p> <h2>${durchschnitt || "-"}</h2></div>` + 
         `<div class="dashboard-part dashboard-bestesFach"><p>Bestes Fach</p><h2>${sortedGrades[0] ? sortedGrades[0].subject : "Noch keine Noten"}</h2></div>` +
         `<div class="dashboard-besteNoten dashboard-part"><h2>Beste Noten</h2><div>${besteNoten}</div></div>` +
-        (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input class="dashboard-noteHinzufügen-neueNote" min=0 max=6 type='number' placeholder="Note" class="dashboard-addGrade-grade" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
+        (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input class="dashboard-noteHinzufügen-neueNote dashboard-addGrade-grade" min=0 max=6 type='number' placeholder="Note" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
         `<div class="dashboard-part dashboard-fächer"><div class="dashboard-fächer-info"><p>Fächer</p><p>Durchschnitt</p><p class='delete-mobile'>Klassenarbeiten</p><p class='delete-mobile'>Tests</p><p class='delete-mobile'>mündlich</p></div><div class='dashboard-fächer-content'>${subjectsMapped}</div><button class="dashboard-addSubject" onclick="openSubjectModal()">Neues Fach hinzufügen</button></div>`
     );
 }
@@ -71,12 +71,19 @@ function onChangeYear(){
 
 
 async function addGrade (){
+    if(!!document.querySelector(".dashboard-error")){
+        document.querySelector(".dashboard-error").remove()
+    }
+    
+    
     const subject = document.querySelector(".dashboard-addGrade-selectSubject").value
     const type = document.querySelector(".dashboard-addGrade-selectType").value
     const grade = document.querySelector(".dashboard-addGrade-grade").value
 
     if(subject === "" || type === "" || grade === ""){
         setErrorMessage("Dein Fach, deine Note oder die Art der Note sind nicht definiert")
+    }else if(grade < 1 || grade > 6){
+        setErrorMessage("Noten müssen sich zwischen 1 und 6 befinden")
     }else {
         const addNewGrade = await fetch("/general/grade", {
             method: "POST",
@@ -100,7 +107,7 @@ async function addGrade (){
 
 function openSubjectModal(){
     const modal = document.createElement("div")
-    modal.innerHTML = "<div class='dashboard-subjectModal-background'> </div><div class='dashboard-subjectModal'>  <div class='dashboard-subjectModal-content'>  <div class='dashboard-subjectModal-name'><p>Name des Fachs</p><input class='dashboard-subjectModal-nameInput' type='text' placeholder='z.B. Mathe, Deutsch, ..'/></div>  <div class='dashboard-subjectModal-input-container'><p>Klassenarbeiten</p><input type='number' class='dashboard-subjectModal-classtestsInput' placeholder='Anteil der Gesamtnote (in %)' /></div>   <div class='dashboard-subjectModal-input-container'><p>Tests</p><input type='number' class='dashboard-subjectModal-testsInput' placeholder='Anteil der Gesamtnote (in %)' /></div>  <div class='dashboard-subjectModal-input-container'><p>Mündlich</p><input type='number' class='dashboard-subjectModal-oralGradesInput' placeholder='Anteil der Gesamtnote (in %)' /></div>      <div class='dashboard-subjectModal-buttons'> <button class='dashbord-subjectModal-buttons-close' onclick='closeSubjectModal()'>Abbrechen</button> <button class='dashbord-subjectModal-buttons-add' onclick='addSubject()'>Hinzufügen</button> </div>  </div> </div>"
+    modal.innerHTML = "<div class='dashboard-subjectModal-background'> </div><div class='dashboard-subjectModal'>  <div class='dashboard-subjectModal-content'>  <div class='dashboard-subjectModal-error-container'></div>  <div class='dashboard-subjectModal-name'><p>Name des Fachs</p><input class='dashboard-subjectModal-nameInput' type='text' placeholder='z.B. Mathe, Deutsch, ..'/></div>  <div class='dashboard-subjectModal-input-container'><p>Klassenarbeiten</p><input type='number' class='dashboard-subjectModal-classtestsInput' placeholder='Anteil der Gesamtnote (in %)' /></div>   <div class='dashboard-subjectModal-input-container'><p>Tests</p><input type='number' class='dashboard-subjectModal-testsInput' placeholder='Anteil der Gesamtnote (in %)' /></div>  <div class='dashboard-subjectModal-input-container'><p>Mündlich</p><input type='number' class='dashboard-subjectModal-oralGradesInput' placeholder='Anteil der Gesamtnote (in %)' /></div>      <div class='dashboard-subjectModal-buttons'> <button class='dashbord-subjectModal-buttons-close' onclick='closeSubjectModal()'>Abbrechen</button> <button class='dashbord-subjectModal-buttons-add' onclick='addSubject()'>Hinzufügen</button> </div>  </div> </div>"
     modal.className = "dashboard-subjectModal-container"
 
     document.querySelector("html").appendChild(modal)
@@ -116,9 +123,9 @@ async function addSubject(){
     const oralGrades = parseFloat(document.querySelector(".dashboard-subjectModal-oralGradesInput").value) / 100
 
     if(newSubject === "" || !newSubject    || classtests === "" || (!classtests && classtests !== 0)    || tests === "" || (!tests && tests !== 0)    || oralGrades === "" ||(!oralGrades && oralGrades !== 0)  ){
-        console.log("some undefined")
+        setModalErrorMessage("Überprüfe deine Angaben")
     } else if(classtests + tests + oralGrades !== 1){
-        console.log("!== 0")
+        setModalErrorMessage("Der Gesamtprozentanteil beträgt nicht 100%.")
     }else {
         const adding = await fetch("/general/subject", {
             method: "POST",
@@ -136,9 +143,17 @@ async function addSubject(){
             
         })
         const addingResponse = await adding.json()
+
+        if(addingResponse.success){
+            closeSubjectModal()
+            init()            
+        }else if(addingResponse.exists){
+            setModalErrorMessage("Dieses Fach existiert bereits")
+        }else {
+            setModalErrorMessage("Etwas ist schiefgelaufen. Versuche es nochmal.")
+        }
         console.log(addingResponse)
-        closeSubjectModal()
-        init()
+
     }
 
     console.log({newSubject, classtests, tests, oralGrades})
@@ -172,9 +187,11 @@ function openSubjectRoute (subject){
 
 
 
+
+
 function setErrorMessage(msg){
-
+    document.querySelector(".dashboard-error-container").innerHTML = `<div class="dashboard-error"><p>${msg}</p></div>`
 }
-function setModalErrorMessage (){
-
+function setModalErrorMessage (msg){
+    document.querySelector(".dashboard-subjectModal-error-container").innerHTML = `<div class="dashboard-subjectModal-error"><p>${msg}</p></div>`
 }

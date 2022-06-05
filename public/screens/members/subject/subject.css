@@ -55,6 +55,49 @@
 
 
 
+
+
+
+
+
+.subject-error-container  {
+    height: 40px;
+}
+.subject-error {
+    width: calc(100% - 20px);
+    background-color: var(--accentColor);
+    padding: 0 10px;
+    height: 100%;
+    text-align: center;
+    animation: error 1s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.subject-error p {
+    margin: 0;
+    font-size: 12px;
+}
+
+@keyframes error {
+    0%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 640px){
     .subject-content {
         grid-template: auto auto auto / 1fr;
