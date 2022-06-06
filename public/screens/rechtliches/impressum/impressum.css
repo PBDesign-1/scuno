@@ -13,3 +13,25 @@
     margin-top: 50px;
     margin-bottom: 20px;
 }
+
+
+
+
+.rechtliches-navigate-back {
+    display: grid;
+    grid-template: 1fr / auto auto;
+    grid-gap: 10px; 
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    background-color: var(--accentColor);
+    padding: 7.5px;
+    margin-top: 50px;
+}
+.rechtliches-navigate-back img {
+    height:30px;
+}
+.rechtliches-navigate-back p {
+    font-size: 12px;
+    margin: 0;
+}

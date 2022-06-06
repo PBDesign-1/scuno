@@ -227,7 +227,10 @@ h2 {
         font-size: 17px;
         line-height: 20px;
     }
-
+    .home-infosheet a{
+        text-decoration: underline;
+        color: var(--accentColor);
+    }
     .button {
         width: 50%;
         margin: 0 auto;
@@ -284,6 +287,7 @@ h2 {
         font-size: 20px;
         line-height: 25px;
     }
+
 
     .button {
         width: 50%;

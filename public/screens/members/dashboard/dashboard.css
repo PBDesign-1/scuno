@@ -1,6 +1,6 @@
 .dashboard {
     display: grid;
-    grid-template: auto auto auto / 1fr 1fr 1fr;
+    grid-template: auto auto auto / 1fr 1fr 1.3fr;
     grid-gap: 24px;
 
 }
@@ -37,11 +37,12 @@
     grid-row: 1/4;
     grid-column: 3;
     overflow-y: auto;
+    padding: 25px;
 }
 .dashboard-besteNoten-part {
     background-color: var(--primary);
     display: grid;
-    grid-template: 1fr / 10% 40% 40%;
+    grid-template: 1fr / 15% 35% 40%;
     grid-gap: calc(10% /3);
 }
 .dashboard-besteNoten-part p{
@@ -340,5 +341,10 @@
     .dashboard-error p {
         margin: 0;
         font-size: 12px;
+    }
+
+
+    .delete-dash {
+        display: none;
     }
 }

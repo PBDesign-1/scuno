@@ -45,7 +45,7 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     const durchschnitt = (parseInt(((sortedSubjects.reduce((all, part)=>all + (part.durchschnitt || 0), 0) / sortedSubjects.filter(s=>!!s.durchschnitt).length)) * 1000) / 1000) || (sortedSubjects.length > 0 ? parseInt(sortedSubjects[0].durchschnitt * 1000) / 1000 : "-")
 
     const subjectOptions = subjectNamesArray.reduce((all, sub)=>all + `<option>${sub}</option>`, "") 
-    const subjectsMapped = sortedSubjects.map(sub=>`<div class='dashboard-fach' onclick='openSubjectRoute("${sub.subject}")'><p>${sub.subject}</p><p>${parseInt(sub.durchschnitt * 1000) / 1000 || "-"}</p><p class='delete-mobile'>${sub.classtests}</p><p  class='delete-mobile'>${sub.tests}</p><p  class='delete-mobile'>${sub.oralGrades}</p><img alt="x" onclick="deleteSubject(${sub.subject})" class="dashboard-fach-x" src="images/x.png" /></div>`).reduce((all, sub)=> all + sub, "")
+    const subjectsMapped = sortedSubjects.map(sub=>`<div class='dashboard-fach' onclick='openSubjectRoute("${sub.subject}")'><p>${sub.subject}</p><p>${parseInt(sub.durchschnitt * 1000) / 1000 || "-"}</p><p class='delete-dash'>${sub.classtests}</p><p  class='delete-dash'>${sub.tests}</p><p  class='delete-dash'>${sub.oralGrades}</p><img alt="x" onclick="deleteSubject(${sub.subject})" class="dashboard-fach-x" src="images/x.png" /></div>`).reduce((all, sub)=> all + sub, "")
 
 
     document.querySelector(".dashboard-selectYear").innerHTML = fetchCurrentYear.years.reduce((all, y)=>all + `<option>${y[0]}-${y[1]}</option>`, "")
@@ -53,10 +53,10 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
 
     document.querySelector(".dashboard").innerHTML = (
         `<div class="dashboard-part dashboard-durchschnitt"> <p>Durchschnitt</p> <h2>${durchschnitt || "-"}</h2></div>` + 
-        `<div class="dashboard-part dashboard-bestesFach"><p>Bestes Fach</p><h2>${sortedGrades[0] ? sortedGrades[0].subject : "Noch keine Noten"}</h2></div>` +
+        `<div class="dashboard-part dashboard-bestesFach"><p>Bestes Fach</p><h2>${sortedGrades[0] ? sortedGrades[0].subject : "-"}</h2></div>` +
         `<div class="dashboard-besteNoten dashboard-part"><h2>Beste Noten</h2><div>${besteNoten}</div></div>` +
         (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input class="dashboard-noteHinzufügen-neueNote dashboard-addGrade-grade" min=0 max=6 type='number' placeholder="Note" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
-        `<div class="dashboard-part dashboard-fächer"><div class="dashboard-fächer-info"><p>Fächer</p><p>Durchschnitt</p><p class='delete-mobile'>Klassenarbeiten</p><p class='delete-mobile'>Tests</p><p class='delete-mobile'>mündlich</p></div><div class='dashboard-fächer-content'>${subjectsMapped}</div><button class="dashboard-addSubject" onclick="openSubjectModal()">Neues Fach hinzufügen</button></div>`
+        `<div class="dashboard-part dashboard-fächer"><div class="dashboard-fächer-info"><p>Fächer</p><p>Durchschnitt</p><p class='delete-dash'>Klassenarbeiten</p><p class='delete-dash'>Tests</p><p class='delete-dash'>mündlich</p></div><div class='dashboard-fächer-content'>${subjectsMapped}</div><button class="dashboard-addSubject" onclick="openSubjectModal()">Neues Fach hinzufügen</button></div>`
     );
 }
 
