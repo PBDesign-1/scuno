@@ -1,6 +1,6 @@
 # Scuno
 Alle HTML, CSS und Javascript (Frontend) Dateien können unter /public/screens gefunden werden
-
+Die fertige Website kann unter https://scuno.herokuapp.com/ gefunden werden
 <br>
 
 ## Bilder und Icons
