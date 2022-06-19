@@ -1,6 +1,8 @@
 # scuno
 Alle HTML, CSS und Javascript (Frontend) Dateien können unter /public/screens gefunden werden
 
+<br>
+
 ## Bilder und Icons
 ### Allgemein:
 - Menu: https://www.iconfinder.com/icons/6351905/burger_checklist_list_menu_navigation_icon
@@ -26,3 +28,12 @@ Alle HTML, CSS und Javascript (Frontend) Dateien können unter /public/screens g
 
 ### Impressum / Datenschutzerklärung
 - Zurück Pfeil: https://www.iconfinder.com/icons/4829870/arrow_back_left_icon
+
+<br>
+
+## Farbpalette
+-   Hintergrund:  #1A1A1D
+-   Primär:  #4E4E50
+-   Sekundär:  #6F2232
+-   Schrift:  #e9e9e9
+-   Akzent:  #C3073F
