@@ -45,7 +45,7 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
     const durchschnitt = (parseInt(((sortedSubjects.reduce((all, part)=>all + (part.durchschnitt || 0), 0) / sortedSubjects.filter(s=>!!s.durchschnitt).length)) * 1000) / 1000) || (sortedSubjects.length > 0 ? parseInt(sortedSubjects[0].durchschnitt * 1000) / 1000 : "-")
 
     const subjectOptions = subjectNamesArray.reduce((all, sub)=>all + `<option>${sub}</option>`, "") 
-    const subjectsMapped = sortedSubjects.map(sub=>`<div class='dashboard-fach' onclick='openSubjectRoute("${sub.subject}")'><p>${sub.subject}</p><p>${parseInt(sub.durchschnitt * 1000) / 1000 || "-"}</p><p class='delete-dash'>${sub.classtests}</p><p  class='delete-dash'>${sub.tests}</p><p  class='delete-dash'>${sub.oralGrades}</p><img alt="x" onclick="deleteSubject(${sub.subject})" class="dashboard-fach-x" src="images/x.png" /></div>`).reduce((all, sub)=> all + sub, "")
+    const subjectsMapped = sortedSubjects.map(sub=>`<div class='dashboard-fach'onclick='openSubjectRoute("${sub.subject}")' ><p>${sub.subject}</p><p>${parseInt(sub.durchschnitt * 1000) / 1000 || "-"}</p><p class='delete-dash'>${sub.classtests}</p><p  class='delete-dash'>${sub.tests}</p><p  class='delete-dash'>${sub.oralGrades}</p><img alt="x" data-subject="${sub.subject}" class="dashboard-fach-x" src="images/x.png" /></div>`).reduce((all, sub)=> all + sub, "")
 
 
     document.querySelector(".dashboard-selectYear").innerHTML = fetchCurrentYear.years.reduce((all, y)=>all + `<option>${y[0]}-${y[1]}</option>`, "")
@@ -58,6 +58,8 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
         (subjectArray.length > 0 ? `<div class="dashboard-part dashboard-noteHinzufügen"><select class="dashboard-addGrade-selectSubject">${subjectOptions}</select><select class="dashboard-addGrade-selectType"><option>Mündlich</option><option>Test</option><option>Klassenarbeit</option></select><input class="dashboard-noteHinzufügen-neueNote dashboard-addGrade-grade" min=0 max=6 type='number' placeholder="Note" /><button onclick="addGrade()" class='dashboard-addGrade'>hinzufügen</button></div>` : "") + 
         `<div class="dashboard-part dashboard-fächer"><div class="dashboard-fächer-info"><p>Fächer</p><p>Durchschnitt</p><p class='delete-dash'>Klassenarbeiten</p><p class='delete-dash'>Tests</p><p class='delete-dash'>mündlich</p></div><div class='dashboard-fächer-content'>${subjectsMapped}</div><button class="dashboard-addSubject" onclick="openSubjectModal()">Neues Fach hinzufügen</button></div>`
     );
+
+    document.querySelector(".dashboard-fach-x").addEventListener("click", (e)=>deleteSubject(e))
 }
 
 init()
@@ -105,6 +107,10 @@ async function addGrade (){
 
 
 
+
+
+
+
 function openSubjectModal(){
     const modal = document.createElement("div")
     modal.innerHTML = "<div class='dashboard-subjectModal-background'> </div><div class='dashboard-subjectModal'>  <div class='dashboard-subjectModal-content'>  <div class='dashboard-subjectModal-error-container'></div>  <div class='dashboard-subjectModal-name'><p>Name des Fachs</p><input class='dashboard-subjectModal-nameInput' type='text' placeholder='z.B. Mathe, Deutsch, ..'/></div>  <div class='dashboard-subjectModal-input-container'><p>Klassenarbeiten</p><input type='number' class='dashboard-subjectModal-classtestsInput' placeholder='Anteil der Gesamtnote (in %)' /></div>   <div class='dashboard-subjectModal-input-container'><p>Tests</p><input type='number' class='dashboard-subjectModal-testsInput' placeholder='Anteil der Gesamtnote (in %)' /></div>  <div class='dashboard-subjectModal-input-container'><p>Mündlich</p><input type='number' class='dashboard-subjectModal-oralGradesInput' placeholder='Anteil der Gesamtnote (in %)' /></div>      <div class='dashboard-subjectModal-buttons'> <button class='dashbord-subjectModal-buttons-close' onclick='closeSubjectModal()'>Abbrechen</button> <button class='dashbord-subjectModal-buttons-add' onclick='addSubject()'>Hinzufügen</button> </div>  </div> </div>"
@@ -122,9 +128,10 @@ async function addSubject(){
     const tests = parseFloat(document.querySelector(".dashboard-subjectModal-testsInput").value) / 100
     const oralGrades = parseFloat(document.querySelector(".dashboard-subjectModal-oralGradesInput").value) / 100
 
+    console.log(classtests , tests , oralGrades, classtests + tests, Math.round(0,9999 * 1000000000), Math.round(0,9999 * 1000000000) / 1000000000)
     if(newSubject === "" || !newSubject    || classtests === "" || (!classtests && classtests !== 0)    || tests === "" || (!tests && tests !== 0)    || oralGrades === "" ||(!oralGrades && oralGrades !== 0)  ){
         setModalErrorMessage("Überprüfe deine Angaben")
-    } else if(classtests + tests + oralGrades !== 1){
+    } else if(Math.round((classtests + tests + oralGrades) * 1000000000) / 1000000000   !== 1){
         setModalErrorMessage("Der Gesamtprozentanteil beträgt nicht 100%.")
     }else {
         const adding = await fetch("/general/subject", {
@@ -152,7 +159,6 @@ async function addSubject(){
         }else {
             setModalErrorMessage("Etwas ist schiefgelaufen. Versuche es nochmal.")
         }
-        console.log(addingResponse)
 
     }
 
@@ -162,7 +168,10 @@ async function addSubject(){
 
 
 
-function deleteSubject (subject){
+async function deleteSubject (e){
+    const subject = e.target.dataset.subject
+    e.stopPropagation()
+    e.preventDefault()
     if(window.confirm(`Willst du das Fach ${subject} wirklich löschen`)){
         fetch("/general/deleteSubject", {
             method: "POST",
@@ -175,11 +184,11 @@ function deleteSubject (subject){
                 years
             })
         }).then(()=>init())
+        
     }
 }
 
 function openSubjectRoute (subject){
-    console.log(subject)
     window.location.assign(`/fach?subject=${subject}&years=${years}`)
 }
 
