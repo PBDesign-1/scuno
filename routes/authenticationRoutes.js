@@ -6,7 +6,7 @@ const router = Router()
 
 router.post('/login', async (req, res)=> {
     const { password, email} = req.body
-    console.log(req.body)
+
     try {
         const dbUser = await connection.db.db("scuno").collection("users").findOne({email})
         if(!dbUser ){
@@ -32,8 +32,6 @@ router.post('/login', async (req, res)=> {
 router.post('/register', async (req, res)=> {
     try {    
         let body = req.body
-        
-        console.log(body)
 
         if(!body.password || !body.name || !body.email){
             res.json({success: false})

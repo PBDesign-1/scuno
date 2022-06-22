@@ -4,9 +4,6 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
  const init = async ()=>{
     const fetchCurrentYearRaw = await fetch(`/general/getYear/${years}`)
     const fetchCurrentYear = await fetchCurrentYearRaw.json()
-
-    // console.log(fetchCurrentYearRaw)
-    console.log(fetchCurrentYear)
     
     const {subjects} = fetchCurrentYear.response
     let grades = []
@@ -128,7 +125,6 @@ async function addSubject(){
     const tests = parseFloat(document.querySelector(".dashboard-subjectModal-testsInput").value) / 100
     const oralGrades = parseFloat(document.querySelector(".dashboard-subjectModal-oralGradesInput").value) / 100
 
-    console.log(classtests , tests , oralGrades, classtests + tests, Math.round(0,9999 * 1000000000), Math.round(0,9999 * 1000000000) / 1000000000)
     if(newSubject === "" || !newSubject    || classtests === "" || (!classtests && classtests !== 0)    || tests === "" || (!tests && tests !== 0)    || oralGrades === "" ||(!oralGrades && oralGrades !== 0)  ){
         setModalErrorMessage("Überprüfe deine Angaben")
     } else if(Math.round((classtests + tests + oralGrades) * 1000000000) / 1000000000   !== 1){
@@ -161,8 +157,6 @@ async function addSubject(){
         }
 
     }
-
-    console.log({newSubject, classtests, tests, oralGrades})
 
 }
 
