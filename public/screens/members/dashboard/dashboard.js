@@ -13,32 +13,35 @@ let years = (new Date(new Date().getFullYear(), 8, 2) - new Date()) > 0 ? `${new
 
 
     Object.keys(subjects).forEach(key=>{
-        subjectNamesArray.push(key)
         const subject = subjects[key]
-        const {classtests, tests, oralGrades} = subject
-        const allPercentages = (subject.tests.length > 0 ? subject.percentages.tests : 0) + (subject.classtests.length > 0 ? subject.percentages.classtests : 0) + (subject.oralGrades.length > 0 ? subject.percentages.oralGrades : 0);
-        
-        let testDurchschnitt =  (tests.reduce((all, part)=>all + part, 0) / tests.length) || tests[0] || 0
-        let classtestDurchschnitt =  (classtests.reduce((all, part)=>all + part, 0) / classtests.length) || classtests[0] || 0
-        let oralGradesDurchschnitt =  (oralGrades.reduce((all, part)=>all + part, 0) / oralGrades.length) || oralGrades[0] || 0
-
-        subjectArray.push({subject: key, durchschnitt: (testDurchschnitt * calcPerc(subject.percentages.tests, allPercentages) + classtestDurchschnitt * calcPerc(subject.percentages.classtests, allPercentages) + oralGradesDurchschnitt * calcPerc(subject.percentages.oralGrades, allPercentages)), tests: tests.length, classtests: classtests.length, oralGrades: oralGrades.length})
-
-        classtests.forEach(grade=>{
-            grades.push({grade, type: "Klassenarbeit", subject: key})
-        })
-        tests.forEach(grade=>{
-            grades.push({grade, type: "Test", subject: key})
-        })
-        oralGrades.forEach(grade=>{
-            grades.push({grade, type: "mündlich", subject: key})
-        })
+        if(!!subject.percentages && !!subject.tests && !!subject.classtests && !!subject.oralGrades){
+            subjectNamesArray.push(key)
+            
+            const {classtests, tests, oralGrades} = subject
+            const allPercentages = (subject.tests.length > 0 ? subject.percentages.tests : 0) + (subject.classtests.length > 0 ? subject.percentages.classtests : 0) + (subject.oralGrades.length > 0 ? subject.percentages.oralGrades : 0);
+            
+            let testDurchschnitt =  (tests.reduce((all, part)=>all + part, 0) / tests.length) || tests[0] || 0
+            let classtestDurchschnitt =  (classtests.reduce((all, part)=>all + part, 0) / classtests.length) || classtests[0] || 0
+            let oralGradesDurchschnitt =  (oralGrades.reduce((all, part)=>all + part, 0) / oralGrades.length) || oralGrades[0] || 0
+    
+            subjectArray.push({subject: key, durchschnitt: (testDurchschnitt * calcPerc(subject.percentages.tests, allPercentages) + classtestDurchschnitt * calcPerc(subject.percentages.classtests, allPercentages) + oralGradesDurchschnitt * calcPerc(subject.percentages.oralGrades, allPercentages)), tests: tests.length, classtests: classtests.length, oralGrades: oralGrades.length})
+    
+            classtests.forEach(grade=>{
+                grades.push({grade, type: "Klassenarbeit", subject: key})
+            })
+            tests.forEach(grade=>{
+                grades.push({grade, type: "Test", subject: key})
+            })
+            oralGrades.forEach(grade=>{
+                grades.push({grade, type: "mündlich", subject: key})
+            })
+        }
         
     }) 
     const sortedGrades = grades.sort((a, b)=>a.grade - b.grade)    
     const sortedSubjects = subjectArray.sort((a, b)=>a.durchschnitt - b.durchschnitt)     
     
-    const besteNoten = sortedGrades.slice(0, 20).reduce((all, grade)=> all + `<div class="dashboard-besteNoten-part"><p>${grade.grade}</p><p>${grade.subject}</p><p>${grade.type}</p></div>`, "")
+    const besteNoten = sortedGrades.slice(0, 15).reduce((all, grade)=> all + `<div class="dashboard-besteNoten-part"><p>${grade.grade}</p><p>${grade.subject}</p><p>${grade.type}</p></div>`, "")
     const durchschnitt = (parseInt(((sortedSubjects.reduce((all, part)=>all + (part.durchschnitt || 0), 0) / sortedSubjects.filter(s=>!!s.durchschnitt).length)) * 1000) / 1000) || (sortedSubjects.length > 0 ? parseInt(sortedSubjects[0].durchschnitt * 1000) / 1000 : "-")
 
     const subjectOptions = subjectNamesArray.reduce((all, sub)=>all + `<option>${sub}</option>`, "") 

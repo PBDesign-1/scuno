@@ -162,7 +162,7 @@ router.post("/grade", async (req, res)=>{
                 type = "tests"
             }
 
-            const pushNewGrade = await connection.db.db("scuno").collection("years").updateOne({user: ObjectId(req.session.user), years}, {$push: {[`subjects.${subject}.${type}`]: parseFloat(grade) }})
+            const pushNewGrade = await connection.db.db("scuno").collection("years").updateOne({user: ObjectId(req.session.user), years}, {$push: {subjects :{subject: {type: parseFloat(grade) }}}})
 
             res.json({success: true})
         }else{
