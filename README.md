@@ -14,7 +14,7 @@ Die fertige Website kann unter https://scuno.herokuapp.com/ gefunden werden
 - Taschenrechner: https://pixabay.com/de/photos/taschenrechner-berechnung-385506/
 - Organisiation: https://pixabay.com/de/photos/croissant-brot-fr%c3%bchst%c3%bcck-h%c3%b6lzern-2562346/
 
-### Recher 
+### Rechner 
 - Taschenrechner: https://www.iconfinder.com/icons/8468578/calculator_finance_calculate_mathematics_calculation_office_technology_math_digital_icon
 
 ### Dashboard
